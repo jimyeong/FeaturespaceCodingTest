@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { axios } from "./axios-util/axios-library-utility";
+
+import MainPage from "./Main/MainPage";
+import PostcodeContextProvider from "./contexts/PostcodeContext";
+import { styled } from "styled-components";
+import { Routes, Route } from "react-router-dom";
+import PostCodeDisplay from "./Main/ui/PostCodeDisplay";
+
+const FrameWrapper = styled.div`
+  padding: 12px 16px;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FrameWrapper className="App">
+      <PostcodeContextProvider>
+        <Routes>
+          <Route path="/" element={<MainPage flag="main" />} />
+          {/**here */}
+          <Route path="/:postcodeId" element={<MainPage flag="searching" />} />
+        </Routes>
+      </PostcodeContextProvider>
+    </FrameWrapper>
   );
 }
 
